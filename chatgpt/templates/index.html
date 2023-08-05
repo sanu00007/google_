@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech Recognition</title>
+    <link rel="stylesheet" href='../static/style.css'>
+</head>
+<body>
+    <h1>Speech Recognition</h1>
+    <div class="container">
+        <p>Click the button to start recording your voice:</p>
+        
+        <button class="gradient-button" onclick="startRecording()">Start Recording</button>
+        <p id="recordingStatus"></p>
+        <div id="recognizedText"></div>
+    </div>
+     <!-- New div to display the recognized text -->
+    <script>
+        function startRecording() {
+            var recordingStatus = document.getElementById("recordingStatus");
+            recordingStatus.innerHTML = "Recording...";
+            fetch('/audio')
+                .then(response => response.text())
+                .then(data => {
+                    recordingStatus.innerHTML = data;
+                });
+        }
+
+        function displayRecognizedText(text) {
+            var recognizedText = document.getElementById("recognizedText");
+            recognizedText.innerHTML = "Recognized Text: " + text;
+        }
+    </script>
+</body>
+</html>
